@@ -29,6 +29,14 @@ class GenreAudienceRepository(private val csvFile: InputStream) {
     }
 
     private fun readTopic(line: String): GenreAudienceItem {
+        val (fields, name) = checkForErrors(line)
+
+        val genreRatings = readGenreRatings(fields)
+        val audienceRatings = readAudienceRatings(fields)
+        return GenreAudienceItem(name, genreRatings, audienceRatings)
+    }
+
+    private fun checkForErrors(line: String): Pair<List<String>, String> {
         val fields = line.split(";")
         val name = fields[0]
 
@@ -36,10 +44,7 @@ class GenreAudienceRepository(private val csvFile: InputStream) {
             throw ReadingException(ReadingException.INSUFFICIENT_COLUMNS)
         if (name == "")
             throw ReadingException(ReadingException.NO_NAME)
-
-        val genreRatings = readGenreRatings(fields)
-        val audienceRatings = readAudienceRatings(fields)
-        return GenreAudienceItem(name, genreRatings, audienceRatings)
+        return Pair(fields, name)
     }
 
     private fun readGenreRatings(fields: List<String>): GenreRatings {
