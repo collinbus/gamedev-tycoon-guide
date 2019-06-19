@@ -24,11 +24,11 @@ class GenreAudienceRepository(private val csvFile: InputStream) {
 
         while (scanner.hasNext()) {
             val line = scanner.nextLine()
-            genreAudienceItems.add(readTopic(line))
+            genreAudienceItems.add(readItem(line))
         }
     }
 
-    private fun readTopic(line: String): GenreAudienceItem {
+    private fun readItem(line: String): GenreAudienceItem {
         val (fields, name) = checkForErrors(line)
 
         val genreRatings = readGenreRatings(fields)
