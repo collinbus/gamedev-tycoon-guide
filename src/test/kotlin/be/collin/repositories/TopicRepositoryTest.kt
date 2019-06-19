@@ -30,7 +30,8 @@ class TopicRepositoryTest {
     private lateinit var repository: TopicRepository
 
     private val correctCSV = javaClass.classLoader.getResourceAsStream("genre-test.csv")
-    private val wrongCSV = javaClass.classLoader.getResourceAsStream("genre-test-name.csv")
+    private val wrongNameCSV = javaClass.classLoader.getResourceAsStream("genre-test-name.csv")
+    private val wrongCategoriesCSV = javaClass.classLoader.getResourceAsStream("genre-test-categories.csv")
 
     @Before
     fun setUp() {
@@ -55,7 +56,7 @@ class TopicRepositoryTest {
 
     @Test
     fun shouldThrowExceptionWhen_NameIsNotPresent() {
-        repository = TopicRepository(wrongCSV)
+        repository = TopicRepository(wrongNameCSV)
 
         var exception = Exception()
         try {
@@ -64,6 +65,20 @@ class TopicRepositoryTest {
             exception = e
         }
 
-        assertEquals("The csv file contains no name", exception.message)
+        assertEquals("A line of the csv file does not contain a name", exception.message)
+    }
+
+    @Test
+    fun shouldThrowExceptionWhen_ThereAreNot10Columns() {
+        repository = TopicRepository(wrongCategoriesCSV)
+
+        var exception = Exception()
+        try {
+            repository.getTopics()
+        } catch (e:ReadingException) {
+            exception = e
+        }
+
+        assertEquals("A line of the csv file does not contain 10 columns", exception.message)
     }
 }

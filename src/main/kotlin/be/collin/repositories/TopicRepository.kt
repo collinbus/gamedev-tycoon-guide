@@ -31,6 +31,8 @@ class TopicRepository(private val csvFile: InputStream) {
         val fields = line.split(";")
         val name = fields[0]
 
+        if (fields.size != 10)
+            throw ReadingException(ReadingException.INSUFFICIENT_COLUMNS)
         if (name == "")
             throw ReadingException(ReadingException.NO_NAME)
 
