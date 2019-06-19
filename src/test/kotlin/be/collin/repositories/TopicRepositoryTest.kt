@@ -4,15 +4,17 @@ import be.collin.domain.AudienceRatings
 import be.collin.domain.GenreRatings
 import be.collin.domain.Rating
 import be.collin.domain.Topic
+import be.collin.exceptions.ReadingException
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import java.lang.Exception
 
 class TopicRepositoryTest {
 
     companion object {
         val AIRPLANE_TOPIC = Topic("Airplane",
-                genreRatings = GenreRatings(Rating.BEST, Rating.WORST,Rating.DONT_CARE,
+                genreRatings = GenreRatings(Rating.BEST, Rating.WORST, Rating.DONT_CARE,
                         Rating.BEST, Rating.BEST, Rating.BEST),
                 audienceRatings = AudienceRatings(Rating.BEST, Rating.BEST, Rating.BETTER))
         val MUSIC_TOPIC = Topic("Music",
@@ -25,17 +27,18 @@ class TopicRepositoryTest {
                 audienceRatings = AudienceRatings(Rating.GOOD, Rating.BEST, Rating.WORSE))
     }
 
-    private lateinit var topicRepository: TopicRepository
+    private lateinit var repository: TopicRepository
+
+    private val correctCSV = javaClass.classLoader.getResourceAsStream("genre-test.csv")
+    private val wrongCSV = javaClass.classLoader.getResourceAsStream("genre-test-name.csv")
 
     @Before
     fun setUp() {
-        topicRepository = TopicRepository()
+        repository = TopicRepository(correctCSV)
     }
 
     @Test
     fun shouldLoad3Topics_When_GetTopicsInvoked() {
-        val repository = topicRepository
-
         val topics = repository.getTopics()
 
         assertEquals(3,topics.size)
@@ -43,12 +46,24 @@ class TopicRepositoryTest {
 
     @Test
     fun shouldLoadCorrectTopics_When_GetTopicsInvoked() {
-        val repository = topicRepository
-
         val topics = repository.getTopics()
 
         assertEquals(AIRPLANE_TOPIC,topics[0])
         assertEquals(MUSIC_TOPIC, topics[1])
         assertEquals(EVOLUTION_TOPIC, topics[2])
+    }
+
+    @Test
+    fun shouldThrowExceptionWhen_NameIsNotPresent() {
+        repository = TopicRepository(wrongCSV)
+
+        var exception = Exception()
+        try {
+            repository.getTopics()
+        } catch (e:ReadingException) {
+            exception = e
+        }
+
+        assertEquals("The csv file contains no name", exception.message)
     }
 }

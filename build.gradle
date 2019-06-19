@@ -29,6 +29,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
 }
 
 compileKotlin {
