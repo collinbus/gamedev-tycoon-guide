@@ -9,7 +9,7 @@ class GenreAudienceRepository(private val csvFile: InputStream) {
 
     private val ratings = Rating.values().associateBy(Rating::score)
 
-    fun getTopics(): List<GenreAudienceItem> {
+    fun getItems(): List<GenreAudienceItem> {
         val genreAudienceItems = mutableListOf<GenreAudienceItem>()
         readCsvFile(genreAudienceItems)
 

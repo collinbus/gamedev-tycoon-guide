@@ -40,14 +40,14 @@ class GenreAudienceRepositoryTest {
 
     @Test
     fun shouldLoad3Topics_When_GetTopicsInvoked() {
-        val topics = repository.getTopics()
+        val topics = repository.getItems()
 
         assertEquals(3,topics.size)
     }
 
     @Test
     fun shouldLoadCorrectTopics_When_GetTopicsInvoked() {
-        val topics = repository.getTopics()
+        val topics = repository.getItems()
 
         assertEquals(AIRPLANE_TOPIC,topics[0])
         assertEquals(MUSIC_TOPIC, topics[1])
@@ -60,7 +60,7 @@ class GenreAudienceRepositoryTest {
 
         var exception = Exception()
         try {
-            repository.getTopics()
+            repository.getItems()
         } catch (e:ReadingException) {
             exception = e
         }
@@ -74,7 +74,7 @@ class GenreAudienceRepositoryTest {
 
         var exception = Exception()
         try {
-            repository.getTopics()
+            repository.getItems()
         } catch (e:ReadingException) {
             exception = e
         }
