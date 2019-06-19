@@ -1,9 +1,9 @@
 package be.collin.repositories
 
 import be.collin.domain.AudienceRatings
+import be.collin.domain.GenreAudienceItem
 import be.collin.domain.GenreRatings
 import be.collin.domain.Rating
-import be.collin.domain.Topic
 import be.collin.exceptions.ReadingException
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -13,15 +13,15 @@ import java.lang.Exception
 class GenreAudienceRepositoryTest {
 
     companion object {
-        val AIRPLANE_TOPIC = Topic("Airplane",
+        val AIRPLANE_TOPIC = GenreAudienceItem("Airplane",
                 genreRatings = GenreRatings(Rating.BEST, Rating.WORST, Rating.DONT_CARE,
                         Rating.BEST, Rating.BEST, Rating.BEST),
                 audienceRatings = AudienceRatings(Rating.BEST, Rating.BEST, Rating.BETTER))
-        val MUSIC_TOPIC = Topic("Music",
+        val MUSIC_TOPIC = GenreAudienceItem("Music",
                 genreRatings = GenreRatings(Rating.BEST, Rating.BETTER, Rating.WORST,
                         Rating.BEST, Rating.WORST, Rating.BEST),
                 audienceRatings = AudienceRatings(Rating.BEST, Rating.BETTER, Rating.GOOD))
-        val EVOLUTION_TOPIC = Topic("Evolution",
+        val EVOLUTION_TOPIC = GenreAudienceItem("Evolution",
                 genreRatings = GenreRatings(Rating.WORSE, Rating.WORST, Rating.WORST,
                         Rating.BEST, Rating.BEST, Rating.WORST),
                 audienceRatings = AudienceRatings(Rating.GOOD, Rating.BEST, Rating.WORSE))
