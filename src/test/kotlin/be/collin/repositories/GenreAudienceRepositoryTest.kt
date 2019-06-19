@@ -10,7 +10,7 @@ import org.junit.Before
 import org.junit.Test
 import java.lang.Exception
 
-class TopicRepositoryTest {
+class GenreAudienceRepositoryTest {
 
     companion object {
         val AIRPLANE_TOPIC = Topic("Airplane",
@@ -27,7 +27,7 @@ class TopicRepositoryTest {
                 audienceRatings = AudienceRatings(Rating.GOOD, Rating.BEST, Rating.WORSE))
     }
 
-    private lateinit var repository: TopicRepository
+    private lateinit var repository: GenreAudienceRepository
 
     private val correctCSV = javaClass.classLoader.getResourceAsStream("genre-test.csv")
     private val wrongNameCSV = javaClass.classLoader.getResourceAsStream("genre-test-name.csv")
@@ -35,7 +35,7 @@ class TopicRepositoryTest {
 
     @Before
     fun setUp() {
-        repository = TopicRepository(correctCSV)
+        repository = GenreAudienceRepository(correctCSV)
     }
 
     @Test
@@ -56,7 +56,7 @@ class TopicRepositoryTest {
 
     @Test
     fun shouldThrowExceptionWhen_NameIsNotPresent() {
-        repository = TopicRepository(wrongNameCSV)
+        repository = GenreAudienceRepository(wrongNameCSV)
 
         var exception = Exception()
         try {
@@ -70,7 +70,7 @@ class TopicRepositoryTest {
 
     @Test
     fun shouldThrowExceptionWhen_ThereAreNot10Columns() {
-        repository = TopicRepository(wrongCategoriesCSV)
+        repository = GenreAudienceRepository(wrongCategoriesCSV)
 
         var exception = Exception()
         try {

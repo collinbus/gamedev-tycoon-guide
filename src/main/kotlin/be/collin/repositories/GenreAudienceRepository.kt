@@ -8,12 +8,18 @@ import be.collin.exceptions.ReadingException
 import java.io.InputStream
 import java.util.*
 
-class TopicRepository(private val csvFile: InputStream) {
+class GenreAudienceRepository(private val csvFile: InputStream) {
 
     private val ratings = Rating.values().associateBy(Rating::score)
 
     fun getTopics(): List<Topic> {
         val topics = mutableListOf<Topic>()
+        readCsvFile(topics)
+
+        return topics
+    }
+
+    private fun readCsvFile(topics: MutableList<Topic>) {
         val scanner = Scanner(csvFile)
 
         if (scanner.hasNextLine())
@@ -23,8 +29,6 @@ class TopicRepository(private val csvFile: InputStream) {
             val line = scanner.nextLine()
             topics.add(readTopic(line))
         }
-
-        return topics
     }
 
     private fun readTopic(line: String): Topic {
