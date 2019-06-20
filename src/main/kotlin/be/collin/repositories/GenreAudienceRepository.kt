@@ -7,7 +7,7 @@ import be.collin.domain.Rating
 import be.collin.exceptions.ReadingException
 import be.collin.io.FileReader
 
-class GenreAudienceRepository(private val fileReader: FileReader) {
+class GenreAudienceRepository(private val fileReader: FileReader): RatingRepository() {
 
     private val ratings = Rating.values().associateBy(Rating::score)
 
@@ -27,19 +27,6 @@ class GenreAudienceRepository(private val fileReader: FileReader) {
         val genreRatings = readGenreRatings(fields)
         val audienceRatings = readAudienceRatings(fields)
         return GenreAudienceItem(name, genreRatings, audienceRatings)
-    }
-
-    private fun checkForErrors(fields: List<String>, name: String) {
-        if (fields.size != 10)
-            throw ReadingException(ReadingException.INSUFFICIENT_COLUMNS)
-        if (name == "")
-            throw ReadingException(ReadingException.NO_NAME)
-    }
-
-    private fun parseFields(line: String): Pair<List<String>, String> {
-        val fields = line.split(";")
-        val name = fields[0]
-        return Pair(fields, name)
     }
 
     private fun readGenreRatings(fields: List<String>): GenreRatings {

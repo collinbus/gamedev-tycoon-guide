@@ -30,10 +30,5 @@ class SpecialityRepositoryTest {
 
         val items = repository.readItems()
         assertEquals(items[0], actionGenre)
-        /*assertEquals(items[1], adventureGenre)
-        assertEquals(items[2], rpgGenre)
-        assertEquals(items[3], simulationGenre)
-        assertEquals(items[4], strategyGenre)
-        assertEquals(items[5], casualGenre)*/
     }
 }
