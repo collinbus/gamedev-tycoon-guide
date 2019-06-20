@@ -1,7 +1,6 @@
 package be.collin.repositories
 
 import be.collin.exceptions.ReadingException
-import be.collin.io.FileReader
 
 abstract class RatingRepository {
     protected fun parseFields(line: String): Pair<List<String>, String> {
