@@ -1,31 +1,23 @@
 package be.collin.repositories
 
-import be.collin.domain.*
+import be.collin.domain.AudienceRatings
+import be.collin.domain.GenreAudienceItem
+import be.collin.domain.GenreRatings
+import be.collin.domain.Rating
 import be.collin.exceptions.ReadingException
-import java.io.InputStream
-import java.util.*
+import be.collin.io.FileReader
 
-class GenreAudienceRepository(private val csvFile: InputStream) {
+class GenreAudienceRepository(private val fileReader: FileReader) {
 
     private val ratings = Rating.values().associateBy(Rating::score)
 
-    fun getItems(): List<GenreAudienceItem> {
-        val genreAudienceItems = mutableListOf<GenreAudienceItem>()
-        readCsvFile(genreAudienceItems)
-
-        return genreAudienceItems
-    }
-
-    private fun readCsvFile(genreAudienceItems: MutableList<GenreAudienceItem>) {
-        val scanner = Scanner(csvFile)
-
-        if (scanner.hasNextLine())
-            scanner.nextLine()
-
-        while (scanner.hasNext()) {
-            val line = scanner.nextLine()
-            genreAudienceItems.add(readItem(line))
+    fun readItems() : List<GenreAudienceItem> {
+        val items = mutableListOf<GenreAudienceItem>()
+        val lines = fileReader.readFile()
+        lines.forEach { line ->
+            items.add(readItem(line))
         }
+        return items
     }
 
     private fun readItem(line: String): GenreAudienceItem {

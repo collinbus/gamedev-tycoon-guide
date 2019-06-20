@@ -5,11 +5,16 @@ import be.collin.domain.GenreAudienceItem
 import be.collin.domain.GenreRatings
 import be.collin.domain.Rating
 import be.collin.exceptions.ReadingException
+import be.collin.io.FileReader
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.lang.Exception
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class GenreAudienceRepositoryTest {
 
     companion object {
@@ -27,41 +32,45 @@ class GenreAudienceRepositoryTest {
                 audienceRatings = AudienceRatings(Rating.GOOD, Rating.BEST, Rating.WORSE))
     }
 
-    private lateinit var repository: GenreAudienceRepository
+    private val correctCsv: List<String> = mutableListOf(
+            "Airplane;7;1;4;7;7;7;7;7;6",
+            "Music;7;6;1;7;1;7;7;6;5",
+            "Evolution;2;1;1;7;7;1;5;7;2")
 
-    private val correctCSV = javaClass.classLoader.getResourceAsStream("genre-test.csv")
-    private val wrongNameCSV = javaClass.classLoader.getResourceAsStream("genre-test-name.csv")
-    private val wrongCategoriesCSV = javaClass.classLoader.getResourceAsStream("genre-test-categories.csv")
+    @Mock
+    private lateinit var csvReader: FileReader
+    private lateinit var repository: GenreAudienceRepository
 
     @Before
     fun setUp() {
-        repository = GenreAudienceRepository(correctCSV)
+        repository = GenreAudienceRepository(csvReader)
     }
 
     @Test
     fun shouldLoad3Topics_When_GetTopicsInvoked() {
-        val topics = repository.getItems()
+        `when`(csvReader.readFile()).thenReturn(correctCsv)
+        val topics = repository.readItems()
 
-        assertEquals(3,topics.size)
+        assertEquals(3, topics.size)
     }
 
     @Test
     fun shouldLoadCorrectTopics_When_GetTopicsInvoked() {
-        val topics = repository.getItems()
+        `when`(csvReader.readFile()).thenReturn(correctCsv)
+        val topics = repository.readItems()
 
-        assertEquals(AIRPLANE_TOPIC,topics[0])
+        assertEquals(AIRPLANE_TOPIC, topics[0])
         assertEquals(MUSIC_TOPIC, topics[1])
         assertEquals(EVOLUTION_TOPIC, topics[2])
     }
 
     @Test
     fun shouldThrowExceptionWhen_NameIsNotPresent() {
-        repository = GenreAudienceRepository(wrongNameCSV)
-
+        `when`(csvReader.readFile()).thenReturn(mutableListOf(";7;1;4;7;7;7;7;7;6"))
         var exception = Exception()
         try {
-            repository.getItems()
-        } catch (e:ReadingException) {
+            repository.readItems()
+        } catch (e: ReadingException) {
             exception = e
         }
 
@@ -70,12 +79,11 @@ class GenreAudienceRepositoryTest {
 
     @Test
     fun shouldThrowExceptionWhen_ThereAreNot10Columns() {
-        repository = GenreAudienceRepository(wrongCategoriesCSV)
-
+        `when`(csvReader.readFile()).thenReturn(mutableListOf("Music;7;1;4;7;7;7;7;7"))
         var exception = Exception()
         try {
-            repository.getItems()
-        } catch (e:ReadingException) {
+            repository.readItems()
+        } catch (e: ReadingException) {
             exception = e
         }
 

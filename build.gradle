@@ -30,6 +30,7 @@ dependencies {
     
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.28.2'
 }
 
 compileKotlin {

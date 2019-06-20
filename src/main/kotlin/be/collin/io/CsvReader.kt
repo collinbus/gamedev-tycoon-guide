@@ -3,9 +3,9 @@ package be.collin.io
 import java.io.InputStream
 import java.util.*
 
-class CsvReader(private val csvFile: InputStream) {
+class CsvReader(private val csvFile: InputStream) : FileReader {
 
-    fun readCsvFile(): List<String> {
+    override fun readFile(): List<String> {
         val lines = mutableListOf<String>()
         val scanner = Scanner(csvFile)
 

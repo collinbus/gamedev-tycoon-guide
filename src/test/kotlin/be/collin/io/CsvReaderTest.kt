@@ -11,7 +11,7 @@ class CsvReaderTest {
     fun shouldLoadCorrectCsv_When_ReadCsvWithValidData() {
         val reader = CsvReader(correctCSV)
 
-        val lines = reader.readCsvFile()
+        val lines = reader.readFile()
 
         assertEquals("Airplane;7;1;4;7;7;7;7;7;6",lines[0])
         assertEquals("Music;7;6;1;7;1;7;7;6;5",lines[1])
