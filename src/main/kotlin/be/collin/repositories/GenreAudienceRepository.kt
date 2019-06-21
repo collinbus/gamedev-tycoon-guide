@@ -4,7 +4,6 @@ import be.collin.domain.AudienceRatings
 import be.collin.domain.GenreAudienceItem
 import be.collin.domain.GenreRatings
 import be.collin.domain.Rating
-import be.collin.exceptions.ReadingException
 import be.collin.io.FileReader
 
 class GenreAudienceRepository(private val fileReader: FileReader): RatingRepository() {

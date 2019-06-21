@@ -2,7 +2,6 @@ package be.collin.repositories
 
 import be.collin.domain.Genre
 import be.collin.domain.Rating
-import be.collin.exceptions.ReadingException
 import be.collin.io.FileReader
 
 class SpecialityRepository(private val fileReader: FileReader): RatingRepository() {
