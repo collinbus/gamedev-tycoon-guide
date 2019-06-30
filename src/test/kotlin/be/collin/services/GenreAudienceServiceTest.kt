@@ -12,7 +12,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class TopicServiceTest {
+class GenreAudienceServiceTest {
 
     @Mock
     private lateinit var repository: RatingRepository<GenreAudienceItem>
@@ -26,7 +26,7 @@ class TopicServiceTest {
         )
 
         `when`(repository.readItems()).thenReturn(mockedTopics)
-        val service = TopicService(repository)
+        val service = GenreAudienceService(repository)
 
         val topics = service.getAllTopics()
 
