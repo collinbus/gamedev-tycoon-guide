@@ -5,12 +5,13 @@ import be.collin.domain.GenreAudienceItem
 import be.collin.domain.GenreRatings
 import be.collin.domain.Rating
 import be.collin.io.FileReader
+import be.collin.io.parser.CsvFieldParser
 
-class GenreAudienceRepository(private val fileReader: FileReader): RatingRepository() {
+class GenreAudienceRepository(private val fileReader: FileReader) : RatingRepository<GenreAudienceItem> {
 
     private val ratings = Rating.values().associateBy(Rating::score)
 
-    fun readItems() : List<GenreAudienceItem> {
+    override fun readItems() : List<GenreAudienceItem> {
         val items = mutableListOf<GenreAudienceItem>()
         val lines = fileReader.readFile()
         lines.forEach { line ->
@@ -20,8 +21,8 @@ class GenreAudienceRepository(private val fileReader: FileReader): RatingReposit
     }
 
     private fun readItem(line: String): GenreAudienceItem {
-        val (fields, name) = parseFields(line)
-        checkForErrors(fields, name)
+        val (fields, name) = CsvFieldParser.parseFields(line)
+        CsvFieldParser.checkForErrors(fields, name)
 
         val genreRatings = readGenreRatings(fields)
         val audienceRatings = readAudienceRatings(fields)

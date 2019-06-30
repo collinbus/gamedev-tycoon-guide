@@ -11,8 +11,8 @@
     <center>
         <VBox>
             <StackPane>
-                <ListView fx:id="genres"/>
-                <Button text="Add Genre"/>
+                <ListView fx:id="topics"/>
+                <Button text="Add Topic"/>
             </StackPane>
             <StackPane>
                 <ListView fx:id="systems"/>

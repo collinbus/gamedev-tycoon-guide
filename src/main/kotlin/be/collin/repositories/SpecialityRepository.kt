@@ -3,12 +3,13 @@ package be.collin.repositories
 import be.collin.domain.Genre
 import be.collin.domain.Rating
 import be.collin.io.FileReader
+import be.collin.io.parser.CsvFieldParser
 
-class SpecialityRepository(private val fileReader: FileReader): RatingRepository() {
+class SpecialityRepository(private val fileReader: FileReader) : RatingRepository<Genre> {
 
     private val ratings = Rating.values().associateBy(Rating::score)
 
-    fun readItems(): List<Genre> {
+    override fun readItems(): List<Genre> {
         val genres = mutableListOf<Genre>()
         val lines = fileReader.readFile()
 
@@ -20,8 +21,8 @@ class SpecialityRepository(private val fileReader: FileReader): RatingRepository
     }
 
     private fun readGenre(line: String): Genre {
-        val (fields, name) = parseFields(line)
-        checkForErrors(fields, name)
+        val (fields, name) = CsvFieldParser.parseFields(line)
+        CsvFieldParser.checkForErrors(fields, name)
 
         return Genre(name,
                 ratings.getValue(fields[1].toInt()),
