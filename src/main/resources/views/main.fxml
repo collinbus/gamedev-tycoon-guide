@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<BorderPane xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.collin.controllers.MainController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.999-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="be.collin.controllers.MainController">
+    <left>
+        <HBox>
+            <VBox>
+                <VBox>
+                    <Text text="Available Topics:"/>
+                    <ListView fx:id="topics"/>
+                </VBox>
+                <VBox>
+                    <Text text="Available Systems:"/>
+                    <ListView fx:id="systems"/>
+                </VBox>
+            </VBox>
+        </HBox>
+    </left>
     <center>
-        <VBox>
-            <HBox>
-                <ListView fx:id="topics" />
-                <Button text="Add Topic" />
-            </HBox>
-            <HBox>
-                <ListView fx:id="systems" />
-                <Button text="Add System" />
-            </HBox>
+        <VBox spacing="24" alignment="CENTER">
+            <Button text="Add Topics"/>
+            <Button text="Add Systems"/>
+            <Button text="Develop Game"/>
         </VBox>
     </center>
+    <right>
+        <VBox>
+            <fx:include source="proposal_box.fxml"/>
+            <fx:include source="proposal_box.fxml"/>
+            <VBox alignment="BOTTOM_CENTER">
+                <Text text="History:"/>
+                <ListView fx:id="history"/>
+            </VBox>
+        </VBox>
+    </right>
 
 </BorderPane>
