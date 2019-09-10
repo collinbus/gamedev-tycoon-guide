@@ -6,7 +6,12 @@ import javafx.scene.layout.VBox
 import javafx.scene.text.Text
 
 
-class ProposalBox() : VBox() {
+class ProposalBox : VBox() {
+
+    var titleText: String = ""; set(value) {
+        field = value
+        title.text = value
+    }
 
     @FXML
     private lateinit var title: Text
@@ -16,7 +21,5 @@ class ProposalBox() : VBox() {
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)
         fxmlLoader.load<Any>()
-
-        title.text = "Next Game:"
     }
 }

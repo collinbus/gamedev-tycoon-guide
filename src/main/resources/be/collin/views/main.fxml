@@ -30,8 +30,8 @@
     </center>
     <right>
         <VBox>
-            <ProposalBox/>
-            <ProposalBox/>
+            <ProposalBox titleText="Current Game:"/>
+            <ProposalBox titleText="Next Game:"/>
             <VBox alignment="BOTTOM_CENTER">
                 <Text text="History:"/>
                 <ListView fx:id="history"/>
