@@ -2,9 +2,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
-<VBox xmlns="http://javafx.com/javafx/8.0.999-ea"
-      xmlns:fx="http://javafx.com/fxml/1">
-    <Text text="Current Game:"/>
+<fx:root type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/8.0.999-ea"
+         xmlns:fx="http://java.sun.com/JSP/Page">
+    <Text fx:id="title"/>
     <VBox>
         <padding>
             <Insets left="5" top="5" bottom="5"/>
@@ -14,4 +15,5 @@
         <Text text="System: PC"/>
         <Text text="Audience: Everyone"/>
     </VBox>
-</VBox>
+</fx:root>
+

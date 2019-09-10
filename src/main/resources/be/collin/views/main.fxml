@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import be.collin.views.ProposalBox?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
@@ -29,8 +30,8 @@
     </center>
     <right>
         <VBox>
-            <fx:include source="proposal_box.fxml"/>
-            <fx:include source="proposal_box.fxml"/>
+            <ProposalBox/>
+            <ProposalBox/>
             <VBox alignment="BOTTOM_CENTER">
                 <Text text="History:"/>
                 <ListView fx:id="history"/>
