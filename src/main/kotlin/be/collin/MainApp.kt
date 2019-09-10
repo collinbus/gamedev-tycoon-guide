@@ -18,7 +18,7 @@ class MainApp: Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.width = 800.0
         primaryStage.height = 600.0
-        val root = FXMLLoader.load<Parent>(javaClass.classLoader.getResource("views/main.fxml"))
+        val root = FXMLLoader.load<Parent>(javaClass.classLoader.getResource("be/collin/views/main.fxml"))
         primaryStage.scene = Scene(root)
         primaryStage.show()
     }

@@ -19,11 +19,11 @@ class MainController: Initializable {
     lateinit var systems:ListView<GenreAudienceItem>
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
-        val topicInput = javaClass.classLoader.getResourceAsStream("csv/Topics.csv")
+        val topicInput = javaClass.classLoader.getResourceAsStream("be/collin/csv/Topics.csv")
         val topicService = GenreAudienceService(GenreAudienceRepository(CsvReader(topicInput)))
         topics.items = FXCollections.observableList(topicService.getAllTopics())
 
-        val systemInput = javaClass.classLoader.getResourceAsStream("csv/Systems.csv")
+        val systemInput = javaClass.classLoader.getResourceAsStream("be/collin/csv/Systems.csv")
         val systemService = GenreAudienceService(GenreAudienceRepository(CsvReader(systemInput)))
         systems.items = FXCollections.observableList(systemService.getAllTopics())
     }
