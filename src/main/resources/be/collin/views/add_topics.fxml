@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.FlowPane?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="be.collin.controllers.AddTopicsController"
+            prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <TextField text="Type to search..."/>
+    </top>
+    <center>
+        <ListView fx:id="topics"/>
+    </center>
+    <bottom>
+        <FlowPane alignment="CENTER">
+            <Button text="Add" onMouseClicked="#addTopicsAndCloseStage"/>
+        </FlowPane>
+    </bottom>
+</BorderPane>
