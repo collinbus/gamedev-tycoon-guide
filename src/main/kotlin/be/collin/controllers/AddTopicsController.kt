@@ -1,6 +1,7 @@
 package be.collin.controllers
 
-import be.collin.controllers.MainController.TopicDataSelectedCallback
+import be.collin.controllers.MainController.GenreAudienceCallback
+import be.collin.controllers.MainController.SelectedItemCallback
 import be.collin.domain.GenreAudienceItem
 import be.collin.io.CsvReader
 import be.collin.repositories.GenreAudienceRepository
@@ -18,9 +19,9 @@ import java.util.ResourceBundle
 class AddTopicsController : Initializable {
 
     @FXML
-    private lateinit var topics: ListView<GenreAudienceItem>
+    private lateinit var items: ListView<GenreAudienceItem>
 
-    private lateinit var dataSelectedCallback: TopicDataSelectedCallback
+    private lateinit var dataSelectedItemCallback: GenreAudienceCallback
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         initTopics()
@@ -29,17 +30,17 @@ class AddTopicsController : Initializable {
     private fun initTopics() {
         val topicInput = javaClass.classLoader.getResourceAsStream("be/collin/csv/Topics.csv")!!
         val topicService = GenreAudienceService(GenreAudienceRepository(CsvReader(topicInput)))
-        topics.items = FXCollections.observableList(topicService.getAllTopics())
-        topics.selectionModel.selectionMode = SelectionMode.MULTIPLE
+        items.items = FXCollections.observableList(topicService.getAllTopics())
+        items.selectionModel.selectionMode = SelectionMode.MULTIPLE
     }
 
-    fun addTopicsAndCloseStage() {
-        dataSelectedCallback.onDataSelected(topics.selectionModel.selectedItems)
-        val currentStage = (topics.scene.window as Stage)
+    fun addItemsAndCloseStage() {
+        dataSelectedItemCallback.onDataSelected(items.selectionModel.selectedItems)
+        val currentStage = (items.scene.window as Stage)
         currentStage.close()
     }
 
-    fun init(topicDataSelectedCallback: TopicDataSelectedCallback) {
-        this.dataSelectedCallback = topicDataSelectedCallback
+    fun init(selectedItemItemCallback: GenreAudienceCallback) {
+        this.dataSelectedItemCallback = selectedItemItemCallback
     }
 }

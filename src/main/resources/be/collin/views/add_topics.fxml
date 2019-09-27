@@ -13,11 +13,11 @@
         <TextField text="Type to search..."/>
     </top>
     <center>
-        <ListView fx:id="topics"/>
+        <ListView fx:id="items"/>
     </center>
     <bottom>
         <FlowPane alignment="CENTER">
-            <Button text="Add" onMouseClicked="#addTopicsAndCloseStage"/>
+            <Button text="Add" onMouseClicked="#addItemsAndCloseStage"/>
         </FlowPane>
     </bottom>
 </BorderPane>

@@ -33,7 +33,7 @@ class MainController: Initializable {
     private fun initTopicsStage() {
         val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/add_topics.fxml"))
         val screen = loader.load<Parent>()
-        loader.getController<AddTopicsController>().init(TopicDataSelectedCallback(topics))
+        loader.getController<AddTopicsController>().init(SelectedItemCallback(topics))
         addTopicsStage.scene = Scene(screen)
         addTopicsStage.initModality(Modality.APPLICATION_MODAL)
     }
@@ -52,9 +52,15 @@ class MainController: Initializable {
         fun onDataSelected(items: List<GenreAudienceItem>)
     }
 
-    class TopicDataSelectedCallback(private val topics: ListView<GenreAudienceItem>) : GenreAudienceCallback {
+    class SelectedItemCallback(private val topics: ListView<GenreAudienceItem>) : GenreAudienceCallback {
         override fun onDataSelected(items: List<GenreAudienceItem>) {
             topics.items = FXCollections.observableList(items)
+        }
+    }
+
+    class SystemDataSelectedCallback(private val systems: ListView<GenreAudienceItem>) : GenreAudienceCallback {
+        override fun onDataSelected(items: List<GenreAudienceItem>) {
+            systems.items = FXCollections.observableList(items)
         }
     }
 }
