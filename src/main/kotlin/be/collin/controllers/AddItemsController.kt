@@ -1,36 +1,27 @@
 package be.collin.controllers
 
 import be.collin.controllers.MainController.GenreAudienceCallback
-import be.collin.controllers.MainController.SelectedItemCallback
 import be.collin.domain.GenreAudienceItem
 import be.collin.io.CsvReader
 import be.collin.repositories.GenreAudienceRepository
 import be.collin.services.GenreAudienceService
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
-import javafx.fxml.Initializable
 import javafx.scene.control.ListView
 import javafx.scene.control.SelectionMode
 import javafx.stage.Stage
 
-import java.net.URL
-import java.util.ResourceBundle
-
-class AddTopicsController : Initializable {
+class AddItemsController {
 
     @FXML
     private lateinit var items: ListView<GenreAudienceItem>
 
     private lateinit var dataSelectedItemCallback: GenreAudienceCallback
 
-    override fun initialize(location: URL?, resources: ResourceBundle?) {
-        initTopics()
-    }
-
-    private fun initTopics() {
-        val topicInput = javaClass.classLoader.getResourceAsStream("be/collin/csv/Topics.csv")!!
-        val topicService = GenreAudienceService(GenreAudienceRepository(CsvReader(topicInput)))
-        items.items = FXCollections.observableList(topicService.getAllTopics())
+    private fun initItemList(source: String) {
+        val topicInput = javaClass.classLoader.getResourceAsStream(source)!!
+        val itemsService = GenreAudienceService(GenreAudienceRepository(CsvReader(topicInput)))
+        items.items = FXCollections.observableList(itemsService.getAllTopics())
         items.selectionModel.selectionMode = SelectionMode.MULTIPLE
     }
 
@@ -40,7 +31,8 @@ class AddTopicsController : Initializable {
         currentStage.close()
     }
 
-    fun init(selectedItemItemCallback: GenreAudienceCallback) {
+    fun init(selectedItemItemCallback: GenreAudienceCallback, source: String) {
+        initItemList(source)
         this.dataSelectedItemCallback = selectedItemItemCallback
     }
 }

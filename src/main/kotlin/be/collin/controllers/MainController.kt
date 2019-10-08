@@ -24,43 +24,36 @@ class MainController: Initializable {
     lateinit var systems:ListView<GenreAudienceItem>
 
     private val addTopicsStage: Stage = Stage()
+    private val addSystemsStage: Stage = Stage()
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
-        initializeLists()
-        initTopicsStage()
+        initAddItemsToStage(topics, addTopicsStage, "be/collin/csv/Topics.csv")
+        initAddItemsToStage(systems, addSystemsStage, "be/collin/csv/Systems.csv")
     }
 
-    private fun initTopicsStage() {
-        val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/add_topics.fxml"))
+    private fun initAddItemsToStage(items: ListView<GenreAudienceItem>, stage: Stage, source: String) {
+        val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/add_items.fxml"))
         val screen = loader.load<Parent>()
-        loader.getController<AddTopicsController>().init(SelectedItemCallback(topics))
-        addTopicsStage.scene = Scene(screen)
-        addTopicsStage.initModality(Modality.APPLICATION_MODAL)
-    }
-
-    private fun initializeLists() {
-        val systemInput = javaClass.classLoader.getResourceAsStream("be/collin/csv/Systems.csv")!!
-        val systemService = GenreAudienceService(GenreAudienceRepository(CsvReader(systemInput)))
-        systems.items = FXCollections.observableList(systemService.getAllTopics())
+        loader.getController<AddItemsController>().init(SelectedItemCallback(items), source)
+        stage.scene = Scene(screen)
+        stage.initModality(Modality.APPLICATION_MODAL)
     }
 
     fun openAddTopicsScreen() {
         addTopicsStage.showAndWait()
     }
 
+    fun openAddSystemsScreen() {
+        addSystemsStage.showAndWait()
+    }
+
     interface GenreAudienceCallback {
         fun onDataSelected(items: List<GenreAudienceItem>)
     }
 
-    class SelectedItemCallback(private val topics: ListView<GenreAudienceItem>) : GenreAudienceCallback {
+    class SelectedItemCallback(private val items: ListView<GenreAudienceItem>) : GenreAudienceCallback {
         override fun onDataSelected(items: List<GenreAudienceItem>) {
-            topics.items = FXCollections.observableList(items)
-        }
-    }
-
-    class SystemDataSelectedCallback(private val systems: ListView<GenreAudienceItem>) : GenreAudienceCallback {
-        override fun onDataSelected(items: List<GenreAudienceItem>) {
-            systems.items = FXCollections.observableList(items)
+            this.items.items = FXCollections.observableList(items)
         }
     }
 }

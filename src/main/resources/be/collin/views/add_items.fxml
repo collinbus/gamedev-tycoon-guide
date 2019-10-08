@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="be.collin.controllers.AddTopicsController"
+            fx:controller="be.collin.controllers.AddItemsController"
             prefHeight="400.0" prefWidth="600.0">
     <top>
         <TextField text="Type to search..."/>
