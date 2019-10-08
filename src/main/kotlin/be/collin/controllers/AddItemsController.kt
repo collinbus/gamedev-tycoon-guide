@@ -9,20 +9,28 @@ import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.control.ListView
 import javafx.scene.control.SelectionMode
+import javafx.scene.control.TextField
 import javafx.stage.Stage
 
 class AddItemsController {
 
     @FXML
     private lateinit var items: ListView<GenreAudienceItem>
+    @FXML
+    private lateinit var filter: TextField
 
     private lateinit var dataSelectedItemCallback: GenreAudienceCallback
+    private lateinit var itemsService: GenreAudienceService
 
     private fun initItemList(source: String) {
         val topicInput = javaClass.classLoader.getResourceAsStream(source)!!
-        val itemsService = GenreAudienceService(GenreAudienceRepository(CsvReader(topicInput)))
-        items.items = FXCollections.observableList(itemsService.getAllTopics())
+        itemsService = GenreAudienceService(GenreAudienceRepository(CsvReader(topicInput)))
+        populateItems(itemsService.getAllItems())
         items.selectionModel.selectionMode = SelectionMode.MULTIPLE
+    }
+
+    private fun populateItems(items: List<GenreAudienceItem>) {
+        this.items.items = FXCollections.observableList(items)
     }
 
     fun addItemsAndCloseStage() {
@@ -34,5 +42,11 @@ class AddItemsController {
     fun init(selectedItemItemCallback: GenreAudienceCallback, source: String) {
         initItemList(source)
         this.dataSelectedItemCallback = selectedItemItemCallback
+        filter.textProperty().addListener { _, _, newValue ->
+            if (newValue == "")
+                populateItems(itemsService.getAllItems())
+            else
+                populateItems(itemsService.getAllItemsContaining(newValue))
+        }
     }
 }
