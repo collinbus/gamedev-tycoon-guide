@@ -7,5 +7,9 @@ enum class Rating(val score: Int) {
     DONT_CARE(4),
     GOOD(5),
     BETTER(6),
-    BEST(7)
+    BEST(7);
+
+    override fun toString(): String{
+        return "$score"
+    }
 }
