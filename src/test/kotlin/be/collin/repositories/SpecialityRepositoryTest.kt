@@ -1,6 +1,7 @@
 package be.collin.repositories
 
 import be.collin.domain.Genre
+import be.collin.domain.GenreLayout
 import be.collin.domain.Rating
 import be.collin.io.FileReader
 import org.junit.Assert.assertEquals
@@ -14,10 +15,10 @@ import org.mockito.junit.MockitoJUnitRunner
 class SpecialityRepositoryTest {
 
     companion object {
-        val actionGenre = Genre("ACTION",
-                Rating.BEST,Rating.BETTER,Rating.WORSE,
-                Rating.WORST,Rating.BETTER, Rating.BEST,
-                Rating.DONT_CARE,Rating.BEST,Rating.BETTER)
+        val actionGenre = GenreLayout(Genre.ACTION,
+                Rating.BEST, Rating.BETTER, Rating.WORSE,
+                Rating.WORST, Rating.BETTER, Rating.BEST,
+                Rating.DONT_CARE, Rating.BEST, Rating.BETTER)
     }
 
     @Mock
