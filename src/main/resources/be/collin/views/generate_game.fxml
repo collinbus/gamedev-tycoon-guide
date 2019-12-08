@@ -12,7 +12,6 @@
     </padding>
     <CheckBox fx:id="targetAudience" minWidth="150" text="TARGET AUDIENCE"/>
     <CheckBox fx:id="casualUnlocked" minWidth="150" text="CASUAL UNLOCKED"/>
-    <CheckBox minWidth="150" text="MULTI-GENRE"/>
     <Button text="Generate" onMouseClicked="#generateGame"/>
 
     <ListView fx:id="games"/>
