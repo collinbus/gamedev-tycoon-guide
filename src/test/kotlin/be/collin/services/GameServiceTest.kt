@@ -28,6 +28,16 @@ class GameServiceTest {
         assertEquals(5, games.size)
     }
 
+    @Test
+    fun `Should return empty list when no items are selected`() {
+        val service = GameService(calculator)
+        `when`(calculator.calculateScores(anyList(), anyList())).thenReturn(mapOf())
+
+        val games = service.getTop5Games(listOf(), listOf())
+
+        assertEquals(0, games.size)
+    }
+
     private fun games(): Map<Int, List<Game>> {
         val topics = tenTopics()
         val systems = pcAndG64()
