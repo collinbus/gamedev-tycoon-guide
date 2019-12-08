@@ -4,36 +4,38 @@ import be.collin.domain.*
 
 class ScoreCalculator {
 
-    fun getBestScores(topics: List<GenreAudienceItem>, systems: List<GenreAudienceItem>): MutableList<Game> {
-        val games = mutableListOf<Game>()
-        val topScorePerSystem = mutableMapOf<GenreAudienceItem, List<Pair<Genre, Rating>>>()
-        val topScorePerTopic = mutableMapOf<GenreAudienceItem, List<Pair<Genre, Rating>>>()
-
+    fun calculateScores(topics: List<GenreAudienceItem>, systems: List<GenreAudienceItem>): Map<Int,List<Game>> {
+        val gameScores = mutableMapOf<Int,MutableList<Game>>()
         systems.forEach { system ->
-            topScorePerSystem[system] = sortGenres(system.genreRatings)
-        }
-
-        topics.forEach { topic ->
-            topScorePerTopic[topic] = sortGenres(topic.genreRatings)
-        }
-
-        topScorePerSystem.keys.forEach { system ->
-            topScorePerTopic.keys.forEach { topic ->
-                val systemScores = topScorePerSystem[system]!!
-                val topicScores = topScorePerTopic[topic]!!
-                //TODO get corresponding genre per system and topic
+            topics.forEach { topic ->
+                Genre.values().forEach { genre ->
+                    if (genre != Genre.CASUAL) {
+                        val score = calculateScore(system, topic, genre)
+                        val game = Game(topic, system, genre, score)
+                        if (!gameScores.containsKey(score))
+                            gameScores[score] = mutableListOf()
+                        gameScores[score]!!.add(game)
+                    }
+                }
             }
         }
-
-        return games
+        return gameScores.toSortedMap(Comparator.reverseOrder())
     }
 
-    private fun sortGenres(genreRatings: GenreRatings): List<Pair<Genre, Rating>> {
-        val genres = mutableListOf(Pair(Genre.ACTION, genreRatings.action), Pair(Genre.RPG, genreRatings.rpg),
-                Pair(Genre.ADVENTURE, genreRatings.adventure), Pair(Genre.CASUAL, genreRatings.casual),
-                Pair(Genre.SIMULATION, genreRatings.simulation), Pair(Genre.STRATEGY, genreRatings.strategy))
+    private fun calculateScore(system: GenreAudienceItem, topic: GenreAudienceItem, genre: Genre): Int {
+        val systemGenreRating = readGenreRating(genre,system.genreRatings)
+        val topicGenreRating = readGenreRating(genre,topic.genreRatings)
+        return systemGenreRating + topicGenreRating
+    }
 
-        genres.sortByDescending { pair -> pair.second.score }
-        return genres.toList()
+    private fun readGenreRating(genre: Genre, genreRatings: GenreRatings): Int {
+        return when (genre) {
+            Genre.ACTION -> genreRatings.action.score
+            Genre.ADVENTURE -> genreRatings.adventure.score
+            Genre.CASUAL -> genreRatings.casual.score
+            Genre.RPG -> genreRatings.rpg.score
+            Genre.SIMULATION -> genreRatings.simulation.score
+            Genre.STRATEGY -> genreRatings.strategy.score
+        }
     }
 }

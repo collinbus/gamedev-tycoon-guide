@@ -4,7 +4,7 @@ import be.collin.domain.AudienceRatings
 import be.collin.domain.GenreAudienceItem
 import be.collin.domain.GenreRatings
 import be.collin.domain.Rating
-import org.junit.Assert
+import junit.framework.TestCase.assertEquals
 import org.junit.Ignore
 import org.junit.Test
 
@@ -13,28 +13,29 @@ class ScoreCalculatorTest {
     companion object {
         val PC_RATINGS = GenreRatings(Rating.BETTER, Rating.BEST, Rating.BETTER, Rating.BEST, Rating.BEST, Rating.WORST)
         val G64_RATINGS = GenreRatings(Rating.BETTER, Rating.BEST, Rating.BETTER, Rating.BETTER, Rating.BEST, Rating.WORSE)
-        val DESKTOP_RATINGS = AudienceRatings(Rating.GOOD, Rating.BETTER, Rating.BEST)
+        val DESKTOP_AUDIENCE_RATINGS = AudienceRatings(Rating.GOOD, Rating.BETTER, Rating.BEST)
     }
 
     @Test
-    @Ignore
-    fun shouldGetBestFiveGames_When_GetTop5IsCalled() {
+    fun `Should return map of games by score when calculateScores is called`() {
         val service = ScoreCalculator()
-        val topics = listOf<GenreAudienceItem>()
+        val topics = tenTopics()
         val systems = pcAndG64()
 
-        val games = service.getBestScores(topics, systems)
+        val games = service.calculateScores(topics, systems)
 
-        Assert.assertEquals(27, games.size)
-    }
-
-    private fun assertGamesInOrder() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        assertEquals(27, games[14]?.size)
+        assertEquals(30, games[13]?.size)
+        assertEquals(11, games[12]?.size)
+        assertEquals(12, games[11]?.size)
+        assertEquals(4, games[9]?.size)
+        assertEquals(8, games[8]?.size)
+        assertEquals(8, games[7]?.size)
     }
 
     private fun pcAndG64(): List<GenreAudienceItem> =
-            listOf(GenreAudienceItem("PC", PC_RATINGS, DESKTOP_RATINGS),
-                    GenreAudienceItem("G64", G64_RATINGS, DESKTOP_RATINGS))
+            listOf(GenreAudienceItem("PC", PC_RATINGS, DESKTOP_AUDIENCE_RATINGS),
+                    GenreAudienceItem("G64", G64_RATINGS, DESKTOP_AUDIENCE_RATINGS))
 
     private fun tenTopics(): List<GenreAudienceItem> =
             listOf(GenreAudienceItem("BUSINESS", GenreRatings(Rating.WORST, Rating.GOOD, Rating.GOOD, Rating.BEST, Rating.BEST, Rating.WORST), AudienceRatings(Rating.BETTER, Rating.BEST, Rating.WORSE)),
