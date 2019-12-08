@@ -22,7 +22,7 @@ class GenerateGameController(private val systems: List<GenreAudienceItem>,
     private val gameService = GameService(SimpleScoreCalculator())
 
     fun generateGame() {
-        val top5Games = gameService.getTop5Games(topics, systems, casualUnlocked.isSelected, targetAudience.isSelected)
+        val top5Games = gameService.getAllGames(topics, systems, casualUnlocked.isSelected, targetAudience.isSelected)
         games.items = FXCollections.observableArrayList(top5Games)
     }
 }
