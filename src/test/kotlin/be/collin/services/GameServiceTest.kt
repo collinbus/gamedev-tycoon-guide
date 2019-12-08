@@ -23,7 +23,7 @@ class GameServiceTest {
         val service = GameService(calculator)
         `when`(calculator.calculateScores(anyList(), anyList(), true, true)).thenReturn(games())
 
-        val games = service.getTop5Games(listOf(), listOf())
+        val games = service.getTop5Games(listOf(), listOf(), true, true)
 
         assertEquals(5, games.size)
     }
@@ -33,7 +33,7 @@ class GameServiceTest {
         val service = GameService(calculator)
         `when`(calculator.calculateScores(anyList(), anyList(), true, true)).thenReturn(mapOf())
 
-        val games = service.getTop5Games(listOf(), listOf())
+        val games = service.getTop5Games(listOf(), listOf(), true, true)
 
         assertEquals(0, games.size)
     }

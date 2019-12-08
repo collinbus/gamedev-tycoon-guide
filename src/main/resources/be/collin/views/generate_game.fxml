@@ -10,8 +10,8 @@
     <padding>
         <Insets top="10" bottom="10" left="10" right="10"/>
     </padding>
-    <CheckBox minWidth="150" text="TARGET AUDIENCE"/>
-    <CheckBox minWidth="150" text="CASUAL UNLOCKED"/>
+    <CheckBox fx:id="targetAudience" minWidth="150" text="TARGET AUDIENCE"/>
+    <CheckBox fx:id="casualUnlocked" minWidth="150" text="CASUAL UNLOCKED"/>
     <CheckBox minWidth="150" text="MULTI-GENRE"/>
     <Button text="Generate" onMouseClicked="#generateGame"/>
 
