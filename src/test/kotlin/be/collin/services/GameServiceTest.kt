@@ -7,9 +7,9 @@ import be.collin.tenTopics
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.anyList
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -21,7 +21,7 @@ class GameServiceTest {
     @Test
     fun `Should return list of 5 games when map contains multiple keys and 7 values`() {
         val service = GameService(calculator)
-        `when`(calculator.calculateScores(anyList(), anyList(), true, true)).thenReturn(games())
+        `when`(calculator.calculateScores(anyList(), anyList(), anyBoolean(), anyBoolean())).thenReturn(games())
 
         val games = service.getTop5Games(listOf(), listOf(), true, true)
 
@@ -31,11 +31,21 @@ class GameServiceTest {
     @Test
     fun `Should return empty list when no items are selected`() {
         val service = GameService(calculator)
-        `when`(calculator.calculateScores(anyList(), anyList(), true, true)).thenReturn(mapOf())
+        `when`(calculator.calculateScores(anyList(), anyList(), anyBoolean(), anyBoolean())).thenReturn(mapOf())
 
         val games = service.getTop5Games(listOf(), listOf(), true, true)
 
         assertEquals(0, games.size)
+    }
+
+    @Test
+    fun `Should return list with 7 games when getAllItems is called`() {
+        val service = GameService(calculator)
+        `when`(calculator.calculateScores(anyList(), anyList(), anyBoolean(), anyBoolean())).thenReturn(games())
+
+        val games = service.getAllGames(listOf(), listOf(), true, true)
+
+        assertEquals(7, games.size)
     }
 
     private fun games(): Map<Int, List<Game>> {
