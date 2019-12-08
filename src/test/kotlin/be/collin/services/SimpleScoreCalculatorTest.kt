@@ -8,12 +8,14 @@ import be.collin.tenTopics
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
-class ScoreCalculatorTest {
+class SimpleScoreCalculatorTest {
 
     companion object {
         val PC_RATINGS = GenreRatings(Rating.BETTER, Rating.BEST, Rating.BETTER, Rating.BEST, Rating.BEST, Rating.WORST)
         val G64_RATINGS = GenreRatings(Rating.BETTER, Rating.BEST, Rating.BETTER, Rating.BETTER, Rating.BEST, Rating.WORSE)
         val DESKTOP_AUDIENCE_RATINGS = AudienceRatings(Rating.GOOD, Rating.BETTER, Rating.BEST)
+        const val CASUAL_UNLOCKED = true
+        const val CASUAL_NOT_UNLOCKED = false
     }
 
     @Test
@@ -22,7 +24,7 @@ class ScoreCalculatorTest {
         val topics = tenTopics()
         val systems = pcAndG64()
 
-        val games = service.calculateScores(topics, systems)
+        val games = service.calculateScores(topics, systems, CASUAL_NOT_UNLOCKED)
 
         assertEquals(27, games[14]?.size)
         assertEquals(30, games[13]?.size)
@@ -31,6 +33,17 @@ class ScoreCalculatorTest {
         assertEquals(4, games[9]?.size)
         assertEquals(8, games[8]?.size)
         assertEquals(8, games[7]?.size)
+    }
+
+    @Test
+    fun `Should return map of 120 games by score when calculateScores is called with casual enabled`() {
+        val service = SimpleScoreCalculator()
+        val topics = tenTopics()
+        val systems = pcAndG64()
+
+        val games = service.calculateScores(topics, systems, CASUAL_UNLOCKED)
+
+        assertEquals(120, games.flatMap { it.value }.size)
     }
 
 }

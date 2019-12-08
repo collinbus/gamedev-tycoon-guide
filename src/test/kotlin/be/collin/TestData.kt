@@ -4,11 +4,11 @@ import be.collin.domain.AudienceRatings
 import be.collin.domain.GenreAudienceItem
 import be.collin.domain.GenreRatings
 import be.collin.domain.Rating
-import be.collin.services.ScoreCalculatorTest
+import be.collin.services.SimpleScoreCalculatorTest
 
 fun pcAndG64(): List<GenreAudienceItem> =
-        listOf(GenreAudienceItem("PC", ScoreCalculatorTest.PC_RATINGS, ScoreCalculatorTest.DESKTOP_AUDIENCE_RATINGS),
-                GenreAudienceItem("G64", ScoreCalculatorTest.G64_RATINGS, ScoreCalculatorTest.DESKTOP_AUDIENCE_RATINGS))
+        listOf(GenreAudienceItem("PC", SimpleScoreCalculatorTest.PC_RATINGS, SimpleScoreCalculatorTest.DESKTOP_AUDIENCE_RATINGS),
+                GenreAudienceItem("G64", SimpleScoreCalculatorTest.G64_RATINGS, SimpleScoreCalculatorTest.DESKTOP_AUDIENCE_RATINGS))
 
 fun tenTopics(): List<GenreAudienceItem> =
         listOf(GenreAudienceItem("BUSINESS", GenreRatings(Rating.WORST, Rating.GOOD, Rating.GOOD, Rating.BEST, Rating.BEST, Rating.WORST), AudienceRatings(Rating.BETTER, Rating.BEST, Rating.WORSE)),

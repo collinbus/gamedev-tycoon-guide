@@ -4,27 +4,38 @@ import be.collin.domain.*
 
 class SimpleScoreCalculator : ScoreCalculator {
 
-    override fun calculateScores(topics: List<GenreAudienceItem>, systems: List<GenreAudienceItem>): Map<Int,List<Game>> {
-        val gameScores = mutableMapOf<Int,MutableList<Game>>()
+    private var casualUnlocked: Boolean = false
+
+    override fun calculateScores(topics: List<GenreAudienceItem>, systems: List<GenreAudienceItem>, casualUnlocked: Boolean): Map<Int, List<Game>> {
+        val gameScores = mutableMapOf<Int, MutableList<Game>>()
+        this.casualUnlocked = casualUnlocked
         systems.forEach { system ->
             topics.forEach { topic ->
                 Genre.values().forEach { genre ->
-                    if (genre != Genre.CASUAL) {
-                        val score = calculateScore(system, topic, genre)
-                        val game = Game(topic, system, genre, score)
-                        if (!gameScores.containsKey(score))
-                            gameScores[score] = mutableListOf()
-                        gameScores[score]!!.add(game)
-                    }
+                    handleGameCreation(genre, system, topic, gameScores)
                 }
             }
         }
         return gameScores.toSortedMap(Comparator.reverseOrder())
     }
 
+    private fun handleGameCreation(genre: Genre,
+                                   system: GenreAudienceItem,
+                                   topic: GenreAudienceItem,
+                                   gameScores: MutableMap<Int, MutableList<Game>>) {
+        if (genre == Genre.CASUAL && !casualUnlocked)
+            return
+
+        val score = calculateScore(system, topic, genre)
+        val game = Game(topic, system, genre, score)
+        if (!gameScores.containsKey(score))
+            gameScores[score] = mutableListOf()
+        gameScores[score]!!.add(game)
+    }
+
     private fun calculateScore(system: GenreAudienceItem, topic: GenreAudienceItem, genre: Genre): Int {
-        val systemGenreRating = readGenreRating(genre,system.genreRatings)
-        val topicGenreRating = readGenreRating(genre,topic.genreRatings)
+        val systemGenreRating = readGenreRating(genre, system.genreRatings)
+        val topicGenreRating = readGenreRating(genre, topic.genreRatings)
         return systemGenreRating + topicGenreRating
     }
 
