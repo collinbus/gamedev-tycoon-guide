@@ -3,7 +3,7 @@ package be.collin.services
 import be.collin.domain.GenreAudienceItem
 import be.collin.repositories.RatingRepository
 
-class GenreAudienceService(private val repository: RatingRepository<GenreAudienceItem>) {
+class GenreAudienceService(repository: RatingRepository<GenreAudienceItem>) {
 
     private val items: List<GenreAudienceItem> = repository.readItems()
 
