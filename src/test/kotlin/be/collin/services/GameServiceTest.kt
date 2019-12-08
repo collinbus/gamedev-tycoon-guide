@@ -7,7 +7,6 @@ import be.collin.tenTopics
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
@@ -18,12 +17,17 @@ class GameServiceTest {
     @Mock
     private lateinit var calculator: ScoreCalculator
 
+    companion object {
+        const val TARGET_AUDIENCE = true
+        const val CASUAL_UNLOCKED = true
+    }
+
     @Test
     fun `Should return list of 5 games when map contains multiple keys and 7 values`() {
         val service = GameService(calculator)
         `when`(calculator.calculateScores(anyList(), anyList(), anyBoolean(), anyBoolean())).thenReturn(games())
 
-        val games = service.getTop5Games(listOf(), listOf(), true, true)
+        val games = service.getTop5Games(listOf(), listOf(), CASUAL_UNLOCKED, TARGET_AUDIENCE)
 
         assertEquals(5, games.size)
     }
@@ -33,7 +37,7 @@ class GameServiceTest {
         val service = GameService(calculator)
         `when`(calculator.calculateScores(anyList(), anyList(), anyBoolean(), anyBoolean())).thenReturn(mapOf())
 
-        val games = service.getTop5Games(listOf(), listOf(), true, true)
+        val games = service.getTop5Games(listOf(), listOf(), CASUAL_UNLOCKED, TARGET_AUDIENCE)
 
         assertEquals(0, games.size)
     }
@@ -43,7 +47,7 @@ class GameServiceTest {
         val service = GameService(calculator)
         `when`(calculator.calculateScores(anyList(), anyList(), anyBoolean(), anyBoolean())).thenReturn(games())
 
-        val games = service.getAllGames(listOf(), listOf(), true, true)
+        val games = service.getAllGames(listOf(), listOf(), CASUAL_UNLOCKED, TARGET_AUDIENCE)
 
         assertEquals(7, games.size)
     }
