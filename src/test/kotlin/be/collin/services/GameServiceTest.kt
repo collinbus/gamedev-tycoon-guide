@@ -1,5 +1,6 @@
 package be.collin.services
 
+import be.collin.domain.Audience
 import be.collin.domain.Game
 import be.collin.domain.Genre
 import be.collin.pcAndG64
@@ -57,15 +58,15 @@ class GameServiceTest {
         val systems = pcAndG64()
         return sortedMapOf(
                 Pair(5, listOf(
-                        Game(topics[0],systems[0],Genre.RPG,5),
-                        Game(topics[0],systems[0],Genre.RPG,5),
-                        Game(topics[0],systems[0],Genre.RPG,5),
-                        Game(topics[0],systems[0],Genre.RPG,5),
-                        Game(topics[0],systems[0],Genre.RPG,5)
+                        Game(topics[0], systems[0], Genre.RPG, Audience.EVERYONE, 5),
+                        Game(topics[0], systems[0], Genre.RPG, Audience.EVERYONE, 5),
+                        Game(topics[0], systems[0], Genre.RPG, Audience.EVERYONE, 5),
+                        Game(topics[0], systems[0], Genre.RPG, Audience.EVERYONE, 5),
+                        Game(topics[0], systems[0], Genre.RPG, Audience.EVERYONE, 5)
                         )),
                 Pair(4, listOf(
-                        Game(topics[0],systems[0],Genre.RPG,4),
-                        Game(topics[0],systems[0],Genre.RPG,4)
+                        Game(topics[0], systems[0], Genre.RPG, Audience.EVERYONE, 4),
+                        Game(topics[0], systems[0], Genre.RPG, Audience.EVERYONE, 4)
                 ))
         )
     }

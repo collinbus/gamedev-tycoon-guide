@@ -43,7 +43,7 @@ class SimpleScoreCalculator : ScoreCalculator {
 
     private fun addGameToMap(system: GenreAudienceItem, topic: GenreAudienceItem, genre: Genre, gameScores: MutableMap<Int, MutableList<Game>>, audience: Audience) {
         val score = calculateScore(system, topic, genre, audience)
-        val game = Game(topic, system, genre, score)
+        val game = Game(topic, system, genre, audience, score)
         if (!gameScores.containsKey(score))
             gameScores[score] = mutableListOf()
         gameScores[score]!!.add(game)
