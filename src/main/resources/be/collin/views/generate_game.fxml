@@ -15,5 +15,5 @@
     <CheckBox minWidth="150" text="MULTI-GENRE"/>
     <Button text="Generate" onMouseClicked="#generateGame"/>
 
-    <ListView/>
+    <ListView fx:id="games"/>
 </VBox>
