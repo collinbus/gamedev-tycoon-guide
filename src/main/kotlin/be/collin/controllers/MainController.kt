@@ -10,6 +10,7 @@ import javafx.scene.Scene
 import javafx.scene.control.ListView
 import javafx.stage.Modality
 import javafx.stage.Stage
+import javafx.util.Callback
 import java.net.URL
 import java.util.*
 
@@ -28,9 +29,6 @@ class MainController: Initializable {
         initAddItemsStage(topics, addTopicsStage, "be/collin/csv/Topics.csv")
         initAddItemsStage(systems, addSystemsStage, "be/collin/csv/Systems.csv")
         generateGameStage.initModality(Modality.APPLICATION_MODAL)
-        val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/generate_game.fxml"))
-        val screen = loader.load<Parent>()
-        generateGameStage.scene = Scene(screen)
     }
 
     private fun initAddItemsStage(items: ListView<GenreAudienceItem>, stage: Stage, source: String) {
@@ -49,6 +47,12 @@ class MainController: Initializable {
         addSystemsStage.showAndWait()
     }
     fun openGenerateGameScreen() {
+        val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/generate_game.fxml"))
+        loader.controllerFactory = Callback {
+            GenerateGameController(systems.items, topics.items)
+        }
+        val screen = loader.load<Parent>()
+        generateGameStage.scene = Scene(screen)
         generateGameStage.showAndWait()
     }
 

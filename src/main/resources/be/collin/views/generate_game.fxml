@@ -13,7 +13,7 @@
     <CheckBox minWidth="150" text="TARGET AUDIENCE"/>
     <CheckBox minWidth="150" text="CASUAL UNLOCKED"/>
     <CheckBox minWidth="150" text="MULTI-GENRE"/>
-    <Button text="Generate"/>
+    <Button text="Generate" onMouseClicked="#generateGame"/>
 
     <ListView/>
 </VBox>
