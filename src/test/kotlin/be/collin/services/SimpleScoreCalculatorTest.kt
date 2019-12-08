@@ -16,6 +16,8 @@ class SimpleScoreCalculatorTest {
         val DESKTOP_AUDIENCE_RATINGS = AudienceRatings(Rating.GOOD, Rating.BETTER, Rating.BEST)
         const val CASUAL_UNLOCKED = true
         const val CASUAL_NOT_UNLOCKED = false
+        const val TARGET_AUDIENCE = true
+        const val NO_TARGET_AUDIENCE = false
     }
 
     @Test
@@ -24,7 +26,7 @@ class SimpleScoreCalculatorTest {
         val topics = tenTopics()
         val systems = pcAndG64()
 
-        val games = service.calculateScores(topics, systems, CASUAL_NOT_UNLOCKED)
+        val games = service.calculateScores(topics, systems, CASUAL_NOT_UNLOCKED, NO_TARGET_AUDIENCE)
 
         assertEquals(27, games[14]?.size)
         assertEquals(30, games[13]?.size)
@@ -41,9 +43,20 @@ class SimpleScoreCalculatorTest {
         val topics = tenTopics()
         val systems = pcAndG64()
 
-        val games = service.calculateScores(topics, systems, CASUAL_UNLOCKED)
+        val games = service.calculateScores(topics, systems, CASUAL_UNLOCKED, NO_TARGET_AUDIENCE)
 
         assertEquals(120, games.flatMap { it.value }.size)
+    }
+
+    @Test
+    fun `Should return map of 360 games by score when calculateScores is called with casual disabled and target audience enabled`() {
+        val service = SimpleScoreCalculator()
+        val topics = tenTopics()
+        val systems = pcAndG64()
+
+        val games = service.calculateScores(topics, systems, CASUAL_NOT_UNLOCKED, TARGET_AUDIENCE)
+
+        assertEquals(300, games.flatMap { it.value }.size)
     }
 
 }

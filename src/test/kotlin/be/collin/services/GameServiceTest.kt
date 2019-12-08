@@ -21,7 +21,7 @@ class GameServiceTest {
     @Test
     fun `Should return list of 5 games when map contains multiple keys and 7 values`() {
         val service = GameService(calculator)
-        `when`(calculator.calculateScores(anyList(), anyList(), true)).thenReturn(games())
+        `when`(calculator.calculateScores(anyList(), anyList(), true, true)).thenReturn(games())
 
         val games = service.getTop5Games(listOf(), listOf())
 
@@ -31,7 +31,7 @@ class GameServiceTest {
     @Test
     fun `Should return empty list when no items are selected`() {
         val service = GameService(calculator)
-        `when`(calculator.calculateScores(anyList(), anyList(), true)).thenReturn(mapOf())
+        `when`(calculator.calculateScores(anyList(), anyList(), true, true)).thenReturn(mapOf())
 
         val games = service.getTop5Games(listOf(), listOf())
 
