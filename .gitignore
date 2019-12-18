@@ -70,3 +70,6 @@ fabric.properties
 # build folder and gradle files
 .gradle/*
 build/*
+
+# jar repositories
+.idea/jarRepositories.xml
