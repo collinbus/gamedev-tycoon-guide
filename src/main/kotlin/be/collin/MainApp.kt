@@ -1,4 +1,4 @@
-package be.collin;
+package be.collin
 
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
@@ -14,6 +14,8 @@ class MainApp: Application() {
         fun main(args: Array<String>) {
             launch(MainApp::class.java)
         }
+
+        private const val APP_TITLE = "Game Dev Tycoon GUIDE"
     }
 
     private val appIcon = Image(javaClass.getResourceAsStream("icons/icon.png"))
@@ -22,6 +24,7 @@ class MainApp: Application() {
         primaryStage.width = 800.0
         primaryStage.height = 600.0
         primaryStage.icons.add(appIcon)
+        primaryStage.title = APP_TITLE
         val root = FXMLLoader.load<Parent>(javaClass.classLoader.getResource("be/collin/views/main.fxml"))
         primaryStage.scene = Scene(root)
         primaryStage.show()
