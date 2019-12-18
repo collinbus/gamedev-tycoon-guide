@@ -4,6 +4,7 @@ import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
+import javafx.scene.image.Image
 import javafx.stage.Stage
 
 class MainApp: Application() {
@@ -15,9 +16,12 @@ class MainApp: Application() {
         }
     }
 
+    private val appIcon = Image(javaClass.getResourceAsStream("icons/icon.png"))
+
     override fun start(primaryStage: Stage) {
         primaryStage.width = 800.0
         primaryStage.height = 600.0
+        primaryStage.icons.add(appIcon)
         val root = FXMLLoader.load<Parent>(javaClass.classLoader.getResource("be/collin/views/main.fxml"))
         primaryStage.scene = Scene(root)
         primaryStage.show()
