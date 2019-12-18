@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="be.collin.controllers.GenerateGameController"
-      alignment="CENTER" spacing="5" prefHeight="400.0" prefWidth="600.0">
-    <padding>
-        <Insets top="10" bottom="10" left="10" right="10"/>
-    </padding>
-    <CheckBox fx:id="targetAudience" minWidth="150" text="TARGET AUDIENCE"/>
-    <CheckBox fx:id="casualUnlocked" minWidth="150" text="CASUAL UNLOCKED"/>
-    <Button text="Generate" onMouseClicked="#generateGame"/>
+<?import javafx.scene.layout.*?>
 
-    <ListView fx:id="games"/>
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="5" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.collin.controllers.GenerateGameController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+    <CheckBox fx:id="targetAudience" minWidth="150" text="TARGET AUDIENCE" />
+    <CheckBox fx:id="casualUnlocked" minWidth="150" text="CASUAL UNLOCKED" />
+    <Button onMouseClicked="#generateGame" text="Generate" />
+
+    <ListView fx:id="games" />
+    <Button onMouseClicked="#exitGameGeneration" text="Done" />
 </VBox>

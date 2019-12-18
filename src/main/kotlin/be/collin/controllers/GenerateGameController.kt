@@ -8,6 +8,7 @@ import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.control.CheckBox
 import javafx.scene.control.ListView
+import javafx.stage.Stage
 
 class GenerateGameController(private val systems: List<GenreAudienceItem>,
                              private val topics: List<GenreAudienceItem>) {
@@ -24,5 +25,10 @@ class GenerateGameController(private val systems: List<GenreAudienceItem>,
     fun generateGame() {
         val allGames = gameService.getAllGames(topics, systems, casualUnlocked.isSelected, targetAudience.isSelected)
         games.items = FXCollections.observableArrayList(allGames)
+    }
+
+    fun exitGameGeneration() {
+        val stage = games.scene.window as Stage
+        stage.close()
     }
 }
