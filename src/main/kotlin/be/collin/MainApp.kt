@@ -19,13 +19,14 @@ class MainApp: Application() {
     }
 
     private val appIcon = Image(javaClass.getResourceAsStream("icons/icon.png"))
+    private val mainSceneUrl = javaClass.classLoader.getResource("be/collin/views/main.fxml")
 
     override fun start(primaryStage: Stage) {
         primaryStage.width = 800.0
         primaryStage.height = 600.0
         primaryStage.icons.add(appIcon)
         primaryStage.title = APP_TITLE
-        val root = FXMLLoader.load<Parent>(javaClass.classLoader.getResource("be/collin/views/main.fxml"))
+        val root = FXMLLoader.load<Parent>(mainSceneUrl)
         primaryStage.scene = Scene(root)
         primaryStage.show()
     }
