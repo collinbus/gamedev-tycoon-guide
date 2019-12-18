@@ -1,5 +1,6 @@
 package be.collin.controllers
 
+import be.collin.domain.Game
 import be.collin.domain.GenreAudienceItem
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -20,6 +21,8 @@ class MainController: Initializable {
     lateinit var topics:ListView<GenreAudienceItem>
     @FXML
     lateinit var systems:ListView<GenreAudienceItem>
+    @FXML
+    lateinit var history:ListView<Game>
 
     private val addTopicsStage: Stage = Stage()
     private val addSystemsStage: Stage = Stage()
@@ -49,7 +52,7 @@ class MainController: Initializable {
     fun openGenerateGameScreen() {
         val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/generate_game.fxml"))
         loader.controllerFactory = Callback {
-            GenerateGameController(systems.items, topics.items)
+            GenerateGameController(systems.items, topics.items, GameGenerationCallback(history))
         }
         val screen = loader.load<Parent>()
         generateGameStage.scene = Scene(screen)
@@ -63,6 +66,12 @@ class MainController: Initializable {
     class SelectedItemCallback(private val items: ListView<GenreAudienceItem>) : GenreAudienceCallback {
         override fun onDataSelected(items: List<GenreAudienceItem>) {
             this.items.items = FXCollections.observableList(items)
+        }
+    }
+
+    class GameGenerationCallback(private val items: ListView<Game>) {
+        fun gameGenerated(game: Game) {
+            items.items.add(game)
         }
     }
 }

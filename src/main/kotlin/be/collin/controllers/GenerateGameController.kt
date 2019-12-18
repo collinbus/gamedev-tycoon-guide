@@ -11,7 +11,8 @@ import javafx.scene.control.ListView
 import javafx.stage.Stage
 
 class GenerateGameController(private val systems: List<GenreAudienceItem>,
-                             private val topics: List<GenreAudienceItem>) {
+                             private val topics: List<GenreAudienceItem>,
+                             val gameGenerationCallback: MainController.GameGenerationCallback) {
 
     @FXML
     lateinit var games: ListView<Game>
@@ -28,6 +29,10 @@ class GenerateGameController(private val systems: List<GenreAudienceItem>,
     }
 
     fun exitGameGeneration() {
+        val selectedGame = games.selectionModel.selectedItem
+        if (selectedGame != null)
+            gameGenerationCallback.gameGenerated(selectedGame)
+
         val stage = games.scene.window as Stage
         stage.close()
     }
