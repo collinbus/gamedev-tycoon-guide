@@ -2,6 +2,7 @@ package be.collin.controllers
 
 import be.collin.domain.Game
 import be.collin.domain.GenreAudienceItem
+import be.collin.views.NodeFactory
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -35,12 +36,8 @@ class MainController: Initializable {
     }
 
     private fun initAddItemsStage(items: ListView<GenreAudienceItem>, stage: Stage, source: String) {
-        val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/add_items.fxml"))
-        loader.controllerFactory = Callback {
-            AddItemsController(SelectedItemCallback(items), source)
-        }
-        val screen = loader.load<Parent>()
-        stage.scene = Scene(screen)
+        val nodeFactory = NodeFactory()
+        stage.scene = Scene(nodeFactory.newAddItemsStage(items, source))
         stage.initModality(Modality.APPLICATION_MODAL)
     }
 
