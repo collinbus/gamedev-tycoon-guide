@@ -5,6 +5,7 @@ import be.collin.domain.GenreAudienceItem
 import be.collin.factory.ServiceFactory
 import be.collin.domain.GenreAudienceType
 import be.collin.factory.NodeFactory
+import be.collin.views.ProposalBox
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -21,11 +22,13 @@ class MainController(
 ) : Initializable {
 
     @FXML
-    lateinit var topics:ListView<GenreAudienceItem>
+    lateinit var topics: ListView<GenreAudienceItem>
     @FXML
-    lateinit var systems:ListView<GenreAudienceItem>
+    lateinit var systems: ListView<GenreAudienceItem>
     @FXML
-    lateinit var history:ListView<Game>
+    lateinit var history: ListView<Game>
+    @FXML
+    lateinit var currentGame: ProposalBox
 
     private val addTopicsStage: Stage = Stage()
     private val addSystemsStage: Stage = Stage()
@@ -52,7 +55,7 @@ class MainController(
     }
 
     fun openGenerateGameScreen() {
-        val screen = nodeFactory.newGenerateGameStage(systems.items, topics.items, history)
+        val screen = nodeFactory.newGenerateGameStage(systems.items, topics.items, GameGenerationCallback(history, currentGame))
         generateGameStage.scene = Scene(screen)
         generateGameStage.showAndWait()
     }
@@ -67,9 +70,10 @@ class MainController(
         }
     }
 
-    class GameGenerationCallback(private val items: ListView<Game>) {
+    class GameGenerationCallback(private val items: ListView<Game>, val currentGame: ProposalBox) {
         fun gameGenerated(game: Game) {
             items.items.add(game)
+            currentGame.controller?.updateGame(game)
         }
     }
 }

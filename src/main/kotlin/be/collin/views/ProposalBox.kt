@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox
 
 class ProposalBox : VBox() {
 
-    private var controller: ProposalBoxController? = null
+    var controller: ProposalBoxController? = null
 
     var titleText: String = ""
         set(value) {

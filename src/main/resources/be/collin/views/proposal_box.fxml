@@ -12,10 +12,10 @@
         <padding>
             <Insets left="5" top="5" bottom="5"/>
         </padding>
-        <Text text="Topic: Airplane"/>
-        <Text text="Genre: Adventure"/>
-        <Text text="System: PC"/>
-        <Text text="Audience: Everyone"/>
+        <Text fx:id="topic" text="Topic:"/>
+        <Text fx:id="genre" text="Genre:"/>
+        <Text fx:id="system" text="System:"/>
+        <Text fx:id="audience" text="Audience:"/>
     </VBox>
 </fx:root>
 

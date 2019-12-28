@@ -30,7 +30,7 @@
     </center>
     <right>
         <VBox>
-            <ProposalBox titleText="Current Game:"/>
+            <ProposalBox fx:id="currentGame" titleText="Current Game:"/>
             <ProposalBox titleText="Next Game:"/>
             <VBox alignment="BOTTOM_CENTER">
                 <Text text="History:"/>
