@@ -5,14 +5,11 @@ import be.collin.domain.GenreAudienceItem
 import be.collin.views.NodeFactory
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
-import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
-import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.ListView
 import javafx.stage.Modality
 import javafx.stage.Stage
-import javafx.util.Callback
 import java.net.URL
 import java.util.*
 
@@ -48,12 +45,9 @@ class MainController(private val nodeFactory: NodeFactory) : Initializable {
     fun openAddSystemsScreen() {
         addSystemsStage.showAndWait()
     }
+
     fun openGenerateGameScreen() {
-        val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/generate_game.fxml"))
-        loader.controllerFactory = Callback {
-            GenerateGameController(systems.items, topics.items, GameGenerationCallback(history))
-        }
-        val screen = loader.load<Parent>()
+        val screen = nodeFactory.newGenerateGameStage(systems.items, topics.items, history)
         generateGameStage.scene = Scene(screen)
         generateGameStage.showAndWait()
     }
