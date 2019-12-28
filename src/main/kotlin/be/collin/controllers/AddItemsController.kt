@@ -2,8 +2,6 @@ package be.collin.controllers
 
 import be.collin.controllers.MainController.*
 import be.collin.domain.GenreAudienceItem
-import be.collin.io.CsvReader
-import be.collin.repositories.GenreAudienceRepository
 import be.collin.services.GenreAudienceService
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -16,7 +14,8 @@ import java.net.URL
 import java.util.*
 
 class AddItemsController(private val dataSelectedItemCallback: SelectedItemCallback,
-                         private val source: String)
+                         private val source: String,
+                         private val itemsService: GenreAudienceService)
     : Initializable {
 
     @FXML
@@ -24,10 +23,8 @@ class AddItemsController(private val dataSelectedItemCallback: SelectedItemCallb
     @FXML
     private lateinit var filter: TextField
 
-    private lateinit var itemsService: GenreAudienceService
-
     override fun initialize(p0: URL?, p1: ResourceBundle?) {
-        initItemList(source)
+        initItemList()
         setupFilter()
     }
 
@@ -46,9 +43,7 @@ class AddItemsController(private val dataSelectedItemCallback: SelectedItemCallb
         }
     }
 
-    private fun initItemList(source: String) {
-        val topicInput = javaClass.classLoader.getResourceAsStream(source)!!
-        itemsService = GenreAudienceService(GenreAudienceRepository(CsvReader(topicInput)))
+    private fun initItemList() {
         populateItems(itemsService.getAllItems())
         items.selectionModel.selectionMode = SelectionMode.MULTIPLE
     }

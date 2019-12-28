@@ -1,6 +1,7 @@
 package be.collin
 
 import be.collin.controllers.MainController
+import be.collin.factory.ServiceFactory
 import be.collin.views.NodeFactory
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
@@ -37,7 +38,7 @@ class MainApp: Application() {
     private fun loadRootNode(): Parent? {
         val loader = FXMLLoader(mainSceneUrl)
         loader.controllerFactory = Callback {
-            MainController(NodeFactory())
+            MainController(NodeFactory(), ServiceFactory())
         }
         return loader.load<Parent>()
     }

@@ -2,6 +2,8 @@ package be.collin.controllers
 
 import be.collin.domain.Game
 import be.collin.domain.GenreAudienceItem
+import be.collin.factory.ServiceFactory
+import be.collin.domain.GenreAudienceType
 import be.collin.views.NodeFactory
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -13,7 +15,10 @@ import javafx.stage.Stage
 import java.net.URL
 import java.util.*
 
-class MainController(private val nodeFactory: NodeFactory) : Initializable {
+class MainController(
+        private val nodeFactory: NodeFactory,
+        private val serviceFactory: ServiceFactory
+) : Initializable {
 
     @FXML
     lateinit var topics:ListView<GenreAudienceItem>
@@ -27,13 +32,13 @@ class MainController(private val nodeFactory: NodeFactory) : Initializable {
     private val generateGameStage: Stage = Stage()
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
-        initAddItemsStage(topics, addTopicsStage, "be/collin/csv/Topics.csv")
-        initAddItemsStage(systems, addSystemsStage, "be/collin/csv/Systems.csv")
+        initAddItemsStage(topics, addTopicsStage, GenreAudienceType.TOPIC)
+        initAddItemsStage(systems, addSystemsStage, GenreAudienceType.SYSTEM)
         generateGameStage.initModality(Modality.APPLICATION_MODAL)
     }
 
-    private fun initAddItemsStage(items: ListView<GenreAudienceItem>, stage: Stage, source: String) {
-        val screen = nodeFactory.newAddItemsStage(items, source)
+    private fun initAddItemsStage(items: ListView<GenreAudienceItem>, stage: Stage, type: GenreAudienceType) {
+        val screen = nodeFactory.newAddItemsStage(items, "", serviceFactory.newGenreAudienceService(type))
         stage.scene = Scene(screen)
         stage.initModality(Modality.APPLICATION_MODAL)
     }
