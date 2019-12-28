@@ -31,7 +31,7 @@
     <right>
         <VBox>
             <ProposalBox fx:id="currentGame" titleText="Current Game:"/>
-            <ProposalBox titleText="Next Game:"/>
+            <ProposalBox fx:id="prevGame" titleText="Previous Game:"/>
             <VBox alignment="BOTTOM_CENTER">
                 <Text text="History:"/>
                 <ListView fx:id="history"/>

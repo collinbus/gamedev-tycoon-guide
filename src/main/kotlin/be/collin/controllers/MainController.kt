@@ -29,6 +29,8 @@ class MainController(
     lateinit var history: ListView<Game>
     @FXML
     lateinit var currentGame: ProposalBox
+    @FXML
+    lateinit var prevGame: ProposalBox
 
     private val addTopicsStage: Stage = Stage()
     private val addSystemsStage: Stage = Stage()
@@ -55,7 +57,7 @@ class MainController(
     }
 
     fun openGenerateGameScreen() {
-        val screen = nodeFactory.newGenerateGameStage(systems.items, topics.items, GameGenerationCallback(history, currentGame))
+        val screen = nodeFactory.newGenerateGameStage(systems.items, topics.items, GameGenerationCallback(history, currentGame, prevGame))
         generateGameStage.scene = Scene(screen)
         generateGameStage.showAndWait()
     }
@@ -70,10 +72,14 @@ class MainController(
         }
     }
 
-    class GameGenerationCallback(private val items: ListView<Game>, val currentGame: ProposalBox) {
+    class GameGenerationCallback(private val items: ListView<Game>,
+                                 private val currentGame: ProposalBox,
+                                 private val prevGame: ProposalBox) {
         fun gameGenerated(game: Game) {
-            items.items.add(game)
+            items.items.add(0, game)
             currentGame.controller?.updateGame(game)
+            if (items.items.size > 1)
+                prevGame.controller?.updateGame(items.items[1])
         }
     }
 }
