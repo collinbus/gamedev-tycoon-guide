@@ -28,18 +28,22 @@ class AddItemsController(private val dataSelectedItemCallback: SelectedItemCallb
 
     override fun initialize(p0: URL?, p1: ResourceBundle?) {
         initItemList(source)
-        filter.textProperty().addListener { _, _, newValue ->
-            if (newValue == "")
-                populateItems(itemsService.getAllItems())
-            else
-                populateItems(itemsService.getAllItemsContaining(newValue))
-        }
+        setupFilter()
     }
 
     fun addItemsAndCloseStage() {
         dataSelectedItemCallback.onDataSelected(items.selectionModel.selectedItems)
         val currentStage = (items.scene.window as Stage)
         currentStage.close()
+    }
+
+    private fun setupFilter() {
+        filter.textProperty().addListener { _, _, newValue ->
+            if (newValue == "")
+                populateItems(itemsService.getAllItems())
+            else
+                populateItems(itemsService.getAllItemsContaining(newValue))
+        }
     }
 
     private fun initItemList(source: String) {
