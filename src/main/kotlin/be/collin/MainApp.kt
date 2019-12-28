@@ -2,7 +2,7 @@ package be.collin
 
 import be.collin.controllers.MainController
 import be.collin.factory.ServiceFactory
-import be.collin.views.NodeFactory
+import be.collin.factory.NodeFactory
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent

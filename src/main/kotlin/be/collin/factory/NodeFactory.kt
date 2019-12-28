@@ -1,4 +1,4 @@
-package be.collin.views
+package be.collin.factory
 
 import be.collin.controllers.AddItemsController
 import be.collin.controllers.GenerateGameController

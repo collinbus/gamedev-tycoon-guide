@@ -4,7 +4,7 @@ import be.collin.domain.Game
 import be.collin.domain.GenreAudienceItem
 import be.collin.factory.ServiceFactory
 import be.collin.domain.GenreAudienceType
-import be.collin.views.NodeFactory
+import be.collin.factory.NodeFactory
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
