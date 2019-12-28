@@ -1,25 +1,24 @@
 package be.collin.views
 
-import javafx.fxml.FXML
+import be.collin.controllers.ProposalBoxController
 import javafx.fxml.FXMLLoader
 import javafx.scene.layout.VBox
-import javafx.scene.text.Text
 
 
 class ProposalBox : VBox() {
 
-    var titleText: String = ""; set(value) {
-        field = value
-        title.text = value
-    }
+    private var controller: ProposalBoxController? = null
 
-    @FXML
-    private lateinit var title: Text
+    var titleText: String = ""
+        set(value) {
+            controller?.title?.text = value
+            field = value
+        }
 
     init {
         val fxmlLoader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/proposal_box.fxml"))
         fxmlLoader.setRoot(this)
-        fxmlLoader.setController(this)
         fxmlLoader.load<Any>()
+        controller = fxmlLoader.getController()
     }
 }

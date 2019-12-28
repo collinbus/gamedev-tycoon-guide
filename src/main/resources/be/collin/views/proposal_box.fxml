@@ -4,7 +4,9 @@
 <?import javafx.scene.text.*?>
 <fx:root type="javafx.scene.layout.VBox"
          xmlns="http://javafx.com/javafx/8.0.999-ea"
-         xmlns:fx="http://java.sun.com/JSP/Page">
+         xmlns:fx="http://java.sun.com/JSP/Page"
+         fx:controller="be.collin.controllers.ProposalBoxController"
+>
     <Text fx:id="title"/>
     <VBox>
         <padding>
