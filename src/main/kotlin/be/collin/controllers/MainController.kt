@@ -36,8 +36,10 @@ class MainController: Initializable {
 
     private fun initAddItemsStage(items: ListView<GenreAudienceItem>, stage: Stage, source: String) {
         val loader = FXMLLoader(javaClass.classLoader.getResource("be/collin/views/add_items.fxml"))
+        loader.controllerFactory = Callback {
+            AddItemsController(SelectedItemCallback(items), source)
+        }
         val screen = loader.load<Parent>()
-        loader.getController<AddItemsController>().init(SelectedItemCallback(items), source)
         stage.scene = Scene(screen)
         stage.initModality(Modality.APPLICATION_MODAL)
     }
