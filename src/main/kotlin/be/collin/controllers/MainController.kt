@@ -38,7 +38,7 @@ class MainController(
     }
 
     private fun initAddItemsStage(items: ListView<GenreAudienceItem>, stage: Stage, type: GenreAudienceType) {
-        val screen = nodeFactory.newAddItemsStage(items, "", serviceFactory.newGenreAudienceService(type))
+        val screen = nodeFactory.newAddItemsStage(items, serviceFactory.newGenreAudienceService(type))
         stage.scene = Scene(screen)
         stage.initModality(Modality.APPLICATION_MODAL)
     }

@@ -14,7 +14,6 @@ import java.net.URL
 import java.util.*
 
 class AddItemsController(private val dataSelectedItemCallback: SelectedItemCallback,
-                         private val source: String,
                          private val itemsService: GenreAudienceService)
     : Initializable {
 

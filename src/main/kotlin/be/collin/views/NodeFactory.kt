@@ -18,10 +18,10 @@ class NodeFactory {
         private const val ADD_ITEMS_URL = "be/collin/views/add_items.fxml"
     }
 
-    fun newAddItemsStage(items: ListView<GenreAudienceItem>, source: String, itemsService: GenreAudienceService): Parent? {
+    fun newAddItemsStage(items: ListView<GenreAudienceItem>, itemsService: GenreAudienceService): Parent? {
         val loader = FXMLLoader(javaClass.classLoader.getResource(ADD_ITEMS_URL))
         loader.controllerFactory = Callback {
-            AddItemsController(SelectedItemCallback(items), source, itemsService)
+            AddItemsController(SelectedItemCallback(items), itemsService)
         }
         return loader.load<Parent>()
     }
