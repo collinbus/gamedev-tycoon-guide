@@ -16,7 +16,7 @@ import javafx.util.Callback
 import java.net.URL
 import java.util.*
 
-class MainController: Initializable {
+class MainController(private val nodeFactory: NodeFactory) : Initializable {
 
     @FXML
     lateinit var topics:ListView<GenreAudienceItem>
@@ -36,8 +36,8 @@ class MainController: Initializable {
     }
 
     private fun initAddItemsStage(items: ListView<GenreAudienceItem>, stage: Stage, source: String) {
-        val nodeFactory = NodeFactory()
-        stage.scene = Scene(nodeFactory.newAddItemsStage(items, source))
+        val screen = nodeFactory.newAddItemsStage(items, source)
+        stage.scene = Scene(screen)
         stage.initModality(Modality.APPLICATION_MODAL)
     }
 

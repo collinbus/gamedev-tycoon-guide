@@ -1,11 +1,14 @@
 package be.collin
 
+import be.collin.controllers.MainController
+import be.collin.views.NodeFactory
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Stage
+import javafx.util.Callback
 
 class MainApp: Application() {
 
@@ -26,8 +29,16 @@ class MainApp: Application() {
         primaryStage.height = 600.0
         primaryStage.icons.add(appIcon)
         primaryStage.title = APP_TITLE
-        val root = FXMLLoader.load<Parent>(mainSceneUrl)
+        val root = loadRootNode()
         primaryStage.scene = Scene(root)
         primaryStage.show()
+    }
+
+    private fun loadRootNode(): Parent? {
+        val loader = FXMLLoader(mainSceneUrl)
+        loader.controllerFactory = Callback {
+            MainController(NodeFactory())
+        }
+        return loader.load<Parent>()
     }
 }
