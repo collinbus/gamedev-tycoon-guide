@@ -1,5 +1,6 @@
 package be.collin.controllers
 
+import be.collin.controllers.MainController.*
 import be.collin.domain.Game
 import be.collin.domain.GenreAudienceItem
 import be.collin.services.GameService
@@ -16,7 +17,7 @@ import java.util.*
 
 class GenerateGameController(private val systems: List<GenreAudienceItem>,
                              private val topics: List<GenreAudienceItem>,
-                             private val gameGenerationCallback: MainController.GameGenerationCallback)
+                             private val gameGenerationCallback: GameGenerationCallback)
     :Initializable {
 
     @FXML
