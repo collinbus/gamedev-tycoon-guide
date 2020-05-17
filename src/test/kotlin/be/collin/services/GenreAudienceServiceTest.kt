@@ -4,16 +4,15 @@ import be.collin.domain.AudienceRatings
 import be.collin.domain.GenreAudienceItem
 import be.collin.domain.GenreRatings
 import be.collin.repositories.RatingRepository
-import junit.framework.Assert.assertEquals
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(JUnitParamsRunner::class)
 class GenreAudienceServiceTest {
