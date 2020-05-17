@@ -23,8 +23,8 @@
     </left>
     <center>
         <VBox spacing="24" alignment="CENTER">
-            <Button text="Add Topics" onMouseClicked="#openAddTopicsScreen"/>
-            <Button text="Add Systems" onMouseClicked="#openAddSystemsScreen"/>
+            <Button text="Manage Topics" onMouseClicked="#openAddTopicsScreen"/>
+            <Button text="Manage Systems" onMouseClicked="#openAddSystemsScreen"/>
             <Button text="Develop Game" onMouseClicked="#openGenerateGameScreen"/>
         </VBox>
     </center>
