@@ -41,7 +41,7 @@ class GenerateGameController(private val systems: List<GenreAudienceItem>,
         games.items = FXCollections.observableArrayList(allGames)
     }
 
-    fun exitGameGeneration() {
+    fun exitGameGenerationWithGame() {
         val selectedGame = games.selectionModel.selectedItem
 
         if (selectedGame == null) {
@@ -50,6 +50,10 @@ class GenerateGameController(private val systems: List<GenreAudienceItem>,
         }
 
         gameGenerationCallback.gameGenerated(selectedGame)
+        exitGameGeneration()
+    }
+
+    fun exitGameGeneration() {
         val stage = games.scene.window as Stage
         stage.close()
     }
