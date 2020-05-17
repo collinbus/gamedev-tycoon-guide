@@ -8,6 +8,7 @@ import be.collin.services.SimpleScoreCalculator
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.scene.control.Alert
 import javafx.scene.control.CheckBox
 import javafx.scene.control.ListView
 import javafx.scene.control.SelectionMode
@@ -18,12 +19,14 @@ import java.util.*
 class GenerateGameController(private val systems: List<GenreAudienceItem>,
                              private val topics: List<GenreAudienceItem>,
                              private val gameGenerationCallback: GameGenerationCallback)
-    :Initializable {
+    : Initializable {
 
     @FXML
     lateinit var games: ListView<Game>
+
     @FXML
     lateinit var casualUnlocked: CheckBox
+
     @FXML
     lateinit var targetAudience: CheckBox
 
@@ -40,10 +43,22 @@ class GenerateGameController(private val systems: List<GenreAudienceItem>,
 
     fun exitGameGeneration() {
         val selectedGame = games.selectionModel.selectedItem
-        if (selectedGame != null)
-            gameGenerationCallback.gameGenerated(selectedGame)
 
+        if (selectedGame == null) {
+            showGameNotSelectedAlert()
+            return
+        }
+
+        gameGenerationCallback.gameGenerated(selectedGame)
         val stage = games.scene.window as Stage
         stage.close()
+    }
+
+    private fun showGameNotSelectedAlert() {
+        val alert = Alert(Alert.AlertType.ERROR)
+        alert.title = "No game selected"
+        alert.headerText = "It looks like you forgot to select a game"
+        alert.contentText = "Please select the game that you would like to develop."
+        alert.showAndWait()
     }
 }
