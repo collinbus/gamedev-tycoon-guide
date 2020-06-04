@@ -25,6 +25,11 @@ repositories {
 group 'be.collin'
 version '1.0-SNAPSHOT'
 
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/kotlin'
+    test.kotlin.srcDirs += 'src/test/kotlin'
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     
